@@ -1,0 +1,1 @@
+start target/image/bin/java.exe -m Pancake/fr.ul.ia.Main
