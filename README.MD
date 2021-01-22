@@ -15,7 +15,20 @@ Voici une liste de commande qui vous permettra de :
 - exécuter l'application
 
 ```shell
-git clone url
+git clone https://github.com/TabaryM/Pancake.git
 mvn javafx:jlink
 start target/image/bin/java -m Pancake/fr.ul.ia.Main
 ```
+
+# TODOListe : 
+- Création du jeu de puissance 4
+  - Modèle back-end
+    - Grille (graphe ?)
+    - Représentation des jetons dans la grille
+    - Représentation des joueurs (pour faciliter l'intégration de l'IA)
+    - Reconnaissance fin de partie
+  - Affichage front-end
+- Création d'IA de jeu
+  - jeu random
+  - Monte-Carlo Tree-Search UCT (Upper Confidence bound in Trees)
+
