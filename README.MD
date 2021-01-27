@@ -1,5 +1,7 @@
 # Projet puissance 4 et MCTS
 
+![connect_Pancake](connect_pancake.png)
+
 ## Récupération, compilation et exécution du projet :
 Pour faciliter le travail à distance et dans des environnements différents,
 nous avons utilisé l'outil de compilation automatique maven.\
@@ -12,13 +14,17 @@ Ainsi, pour que ce projet fonctionne veuillez vous assurer que :
 Voici une liste de commande qui vous permettra de :
 - télécharger les sources
 - compiler l'application
-- exécuter l'application
 
-```shell
+```sh
 git clone https://github.com/TabaryM/Pancake.git
+cd Pancake
 mvn javafx:jlink
-start target/image/bin/java -m Pancake/fr.ul.ia.Main
 ```
+Pour exécuter l'application :
+- Si vous êtes sur un système Windows : 
+  - `start.bat`
+- Si vous êtes sur un système UNIX : 
+  - `start.sh`
 
 # TODOListe : 
 - Création du jeu de puissance 4
