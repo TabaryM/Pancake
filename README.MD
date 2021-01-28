@@ -26,7 +26,7 @@ Pour exécuter l'application :
 - Si vous êtes sur un système UNIX : 
   - `start.sh`
 
-# TODOListe : 
+## TODOListe : 
 - Création du jeu de puissance 4
   - Modèle back-end
     - Grille (graphe ?)
@@ -38,3 +38,5 @@ Pour exécuter l'application :
   - jeu random
   - Monte-Carlo Tree-Search UCT (Upper Confidence bound in Trees)
 
+## Diagramme de classe (mal rangé)
+![diagramme de classe](conception/diagrammed_de_classe.svg)
