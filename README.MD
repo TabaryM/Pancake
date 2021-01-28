@@ -1,6 +1,6 @@
 # Projet puissance 4 et MCTS
 
-![connect_Pancake](connect_pancake.png)
+![connect_Pancake](conception/connect_pancake.png)
 
 ## Récupération, compilation et exécution du projet :
 Pour faciliter le travail à distance et dans des environnements différents,
