@@ -39,4 +39,4 @@ Pour exécuter l'application :
   - Monte-Carlo Tree-Search UCT (Upper Confidence bound in Trees)
 
 ## Diagramme de classe (mal rangé)
-![diagramme de classe](conception/diagrammed_de_classe.svg)
+![diagramme de classe](conception/diagramme_de_classe.svg)
