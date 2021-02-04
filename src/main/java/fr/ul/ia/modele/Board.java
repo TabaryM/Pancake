@@ -1,5 +1,7 @@
 package fr.ul.ia.modele;
 
+import fr.ul.ia.exception.IllegalBoardModificationException;
+
 import java.util.Arrays;
 
 public class Board implements Comparable{
@@ -24,14 +26,25 @@ public class Board implements Comparable{
         return board[i][j];
     }
 
+    /**
+     * Set the value of the case (i,j) to the number of the player.
+     * @param i line of the case
+     * @param j column of the case
+     * @param value number of the player
+     * @throws IllegalBoardModificationException if there is token in the case (i,j) and the game try to change this token with another.
+     */
     public void set(int i, int j, int value){
-        board[i][j] = value;
-        // TODO : vérifier par rapport a l'ancienne valeur
+        if(board[i][j] != 0 && value != 0 && value != board[i][j]){
+            throw new IllegalBoardModificationException("A player cannot replace an other's player token !");
+        }
         if(value != 0){
             nbToken++;
         } else {
-            nbToken--;
+            if(board[i][j] != 0) {
+                nbToken--;
+            }
         }
+        board[i][j] = value;
     }
 
     public int getNbToken(){
@@ -41,8 +54,7 @@ public class Board implements Comparable{
     @Override
     public int compareTo(Object o) {
         if(this.equals(o)) return 0;
-        Board compare = (Board) o;
-        return getNbToken() - compare.getNbToken();
+        return getNbToken() - ((Board) o).getNbToken();
     }
 
     @Override

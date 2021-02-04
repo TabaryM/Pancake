@@ -10,6 +10,11 @@ public interface Game {
     void init();
 
     /**
+     * Start the game
+     */
+    void start();
+
+    /**
      * @return true if one player has won or if no more move is available, otherwise return false
      */
     boolean isFinished();

@@ -4,28 +4,24 @@ import fr.ul.ia.engine.State;
 import fr.ul.ia.exception.IllegalMoveException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PancakeState implements State {
-
-
-    private int player;
-
-    private Board board;
+    private int currentPlayer;
+    private final Board board;
 
     private PancakeState(){
         board = new Board();
-        player = 1;
+        currentPlayer = 1;
     }
 
     private void nextPlayer(){
-        player = player%2 + 1;
+        currentPlayer = currentPlayer %2 + 1;
     }
 
     public PancakeState(PancakeState pancakeState){
         board = new Board(pancakeState.board);
-        player = pancakeState.player;
+        currentPlayer = pancakeState.currentPlayer;
     }
 
     public static PancakeState getInitialState(){
@@ -35,7 +31,7 @@ public class PancakeState implements State {
     @Override
     public void applyMove(Move move) throws IllegalMoveException {
         if(board.get(move.getColumn(),move.getRow()) == 0){
-            board.set(move.getColumn(),move.getRow(),player);
+            board.set(move.getColumn(),move.getRow(), currentPlayer);
             nextPlayer();
         } else {
             throw new IllegalMoveException("Can't execute the move");
@@ -74,11 +70,6 @@ public class PancakeState implements State {
         return avaibleMoves;
     }
 
-    /**
-     * Must respect that : https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html
-     * @param o
-     * @return
-     */
     @Override
     public int compareTo(Object o) {
         return board.compareTo(((PancakeState)o).board);
