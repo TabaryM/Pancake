@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class Main extends Application {
 
     @Override
@@ -30,6 +32,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Game game = new PancakeGame();
+        // game.start();
         PancakeState state = PancakeState.getInitialState();
         List<Move> moves = state.getAvailableMoves();
 
