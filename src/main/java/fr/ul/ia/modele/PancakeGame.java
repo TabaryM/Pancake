@@ -11,6 +11,7 @@ public class PancakeGame implements Game {
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
+    public static final int nbDiscsToWin = 4;
 
     @Override
     public void init() {

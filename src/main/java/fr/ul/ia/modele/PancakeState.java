@@ -4,9 +4,15 @@ import fr.ul.ia.engine.State;
 import fr.ul.ia.exception.IllegalMoveException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PancakeState implements State {
+
+    public final static int PLAYER1 = 1;
+    public final static int PLAYER2 = 2;
+
+    private int player;
     private int currentPlayer;
     private final Board board;
 
@@ -40,7 +46,45 @@ public class PancakeState implements State {
 
     @Override
     public EndState testEnd() {
-        return null;
+
+        int nbMoves = 0;
+        int counter;
+        for (int i = 0; i < Board.BOARD_WIDTH; i ++){
+            for (int j = 0; j < Board.BOARD_HEIGHT; j++){
+                if(board.get(i,j) != 0){
+                    nbMoves++;
+
+                    counter = 0;
+                    while( counter < PancakeGame.nbDiscsToWin && i + counter < Board.BOARD_WIDTH && board.get(i+counter,j) == board.get(i,j))
+                        counter++;
+                    if( counter == PancakeGame.nbDiscsToWin)
+                        return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;
+
+                    counter = 0;
+                    while( counter < PancakeGame.nbDiscsToWin && j + counter < Board.BOARD_HEIGHT && board.get(i,+counter) == board.get(i,j))
+                        counter++;
+                    if( counter == PancakeGame.nbDiscsToWin)
+                        return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;
+
+                    counter = 0;
+                    while( counter < PancakeGame.nbDiscsToWin && i + counter < Board.BOARD_WIDTH && j + counter < Board.BOARD_HEIGHT && board.get(i+ counter,j+counter) == board.get(i,j))
+                        counter++;
+                    if( counter == PancakeGame.nbDiscsToWin)
+                        return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;
+
+                    counter = 0;
+                    while( counter < PancakeGame.nbDiscsToWin && i + counter < Board.BOARD_WIDTH && j - counter < Board.BOARD_HEIGHT && board.get(i+ counter,j-counter) == board.get(i,j))
+                        counter++;
+                    if( counter == PancakeGame.nbDiscsToWin)
+                        return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;
+                }
+            }
+        }
+
+        if(Board.BOARD_HEIGHT * Board.BOARD_WIDTH == nbMoves)
+            return EndState.DRAW;
+
+        return EndState.NOT_FINISHED;
     }
 
     @Override
@@ -57,7 +101,7 @@ public class PancakeState implements State {
                     j--;
                 }
             }
-            if(j == 1){
+            if(j == 0){
                 if(board.get(i,0) == 0) {
                     found = true;
                     j = 0;
