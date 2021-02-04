@@ -4,4 +4,5 @@ module Pancake {
     requires javafx.fxml;
     opens fr.ul.ia to javafx.fxml;
     exports fr.ul.ia;
+    exports fr.ul.ia.modele;
 }
