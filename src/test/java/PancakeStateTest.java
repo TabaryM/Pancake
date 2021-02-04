@@ -1,6 +1,4 @@
-import fr.ul.ia.modele.Move;
-import fr.ul.ia.modele.Board;
-import fr.ul.ia.modele.PancakeState;
+import fr.ul.ia.modele.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,4 +27,75 @@ public class PancakeStateTest {
         assertEquals(Board.BOARD_WIDTH,moves.size());
     }
 
+    @Test
+    void testEndRight1() {
+
+        state.applyMove(new Move(0,0));
+        state.applyMove(new Move(1,0));
+
+        state.applyMove(new Move(1,1));
+        state.applyMove(new Move(2,0));
+
+        state.applyMove(new Move(2,2));
+        state.applyMove(new Move(3,0));
+
+        state.applyMove(new Move(3,3));
+        state.applyMove(new Move(4,0));
+
+        assertEquals(EndState.PLAYER1_WON,state.testEnd());
+    }
+
+    @Test
+    void testEndRight2() {
+
+        state.applyMove(new Move(0,0));
+        state.applyMove(new Move(1,0));
+
+        state.applyMove(new Move(0,1));
+        state.applyMove(new Move(1,1));
+
+        state.applyMove(new Move(0,2));
+        state.applyMove(new Move(1,2));
+
+        state.applyMove(new Move(2,0));
+        state.applyMove(new Move(1,3));
+
+        assertEquals(EndState.PLAYER2_WON,state.testEnd());
+    }
+
+    @Test
+    void testEndRight3() {
+
+        state.applyMove(new Move(0,0));
+        state.applyMove(new Move(0,1));
+
+        state.applyMove(new Move(1,0));
+        state.applyMove(new Move(1,1));
+
+        state.applyMove(new Move(2,0));
+        state.applyMove(new Move(2,1));
+
+        state.applyMove(new Move(3,0));
+        state.applyMove(new Move(3,1));
+
+        assertEquals(EndState.PLAYER1_WON,state.testEnd());
+    }
+
+    @Test
+    void testEndRight4() {
+
+        state.applyMove(new Move(6,0));
+        state.applyMove(new Move(6,1));
+
+        state.applyMove(new Move(5,1));
+        state.applyMove(new Move(5,2));
+
+        state.applyMove(new Move(4,2));
+        state.applyMove(new Move(4,3));
+
+        state.applyMove(new Move(3,2));
+        state.applyMove(new Move(3,4));
+
+        assertEquals(EndState.PLAYER2_WON,state.testEnd());
+    }
 }
