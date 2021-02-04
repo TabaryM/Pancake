@@ -13,6 +13,11 @@ public class PancakeGame implements Game {
     private Player currentPlayer;
     public static final int nbDiscsToWin = 4;
 
+    public PancakeGame() {
+        currentState = PancakeState.getInitialState();
+        init();
+    }
+
     @Override
     public void init() {
         playerOne = new HumanPlayer();
