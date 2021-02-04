@@ -1,16 +1,16 @@
 package fr.ul.ia.modele;
 
 public class Move {
-    private final int line;
+    private final int column;
     private final int row;
 
-    public Move(int line, int row) {
-        this.line = line;
+    public Move(int column, int row) {
+        this.column = column;
         this.row = row;
     }
 
-    public int getLine() {
-        return line;
+    public int getColumn() {
+        return column;
     }
 
     public int getRow() {

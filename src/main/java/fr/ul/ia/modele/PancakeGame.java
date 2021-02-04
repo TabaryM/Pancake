@@ -3,6 +3,7 @@ package fr.ul.ia.modele;
 import fr.ul.ia.engine.Game;
 
 public class PancakeGame implements Game {
+
     @Override
     public void init() {
 
