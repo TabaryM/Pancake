@@ -8,9 +8,9 @@ import fr.ul.ia.exception.PancakeException;
 public class PancakeGame implements Game {
 
     private State currentState;
-    private Player playerOne;
-    private Player playerTwo;
-    private Player currentPlayer;
+
+    private Player players[];
+    private int currentPlayer;
     public static final int nbDiscsToWin = 4;
 
     public PancakeGame() {
@@ -20,37 +20,35 @@ public class PancakeGame implements Game {
 
     @Override
     public void init() {
-        playerOne = new HumanPlayer();
-        playerTwo = new HumanPlayer();
 
-        currentPlayer = playerOne;
+        players = new Player[2];
+
+        players[0] = new HumanPlayer();
+        players[1] = new HumanPlayer();
+
+        currentPlayer = 0;
     }
 
     @Override
     public void start() {
         while(!isFinished()){
             evolve();
+            System.out.println(currentState.toString());
         }
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return currentState.testEnd() != EndState.NOT_FINISHED;
     }
 
     @Override
     public void evolve() {
         nextPlayer();
-        currentState.applyMove(currentPlayer.play());
+        currentState.applyMove(players[currentPlayer].play());
     }
 
     void nextPlayer(){
-        if(currentPlayer == playerOne){
-            currentPlayer = playerTwo;
-        } else if(currentPlayer == playerTwo){
-            currentPlayer = playerOne;
-        } else {
-            throw new PancakeException("On ne sait plus qui est le joueur courrant");
-        }
+        currentPlayer = (currentPlayer + 1)%2;
     }
 }

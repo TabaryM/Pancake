@@ -73,7 +73,7 @@ public class PancakeState implements State {
                         return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;
 
                     counter = 0;
-                    while( counter < PancakeGame.nbDiscsToWin && i + counter < Board.BOARD_WIDTH && j - counter < Board.BOARD_HEIGHT && board.get(i+ counter,j-counter) == board.get(i,j))
+                    while( counter < PancakeGame.nbDiscsToWin && i + counter < Board.BOARD_WIDTH && j - counter >= 0 && board.get(i+ counter,j-counter) == board.get(i,j))
                         counter++;
                     if( counter == PancakeGame.nbDiscsToWin)
                         return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;
@@ -85,6 +85,11 @@ public class PancakeState implements State {
             return EndState.DRAW;
 
         return EndState.NOT_FINISHED;
+    }
+
+    @Override
+    public String toString() {
+        return "Board:\n" + board.toString();
     }
 
     @Override

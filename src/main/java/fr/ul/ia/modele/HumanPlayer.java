@@ -11,7 +11,9 @@ public class HumanPlayer implements Player {
     public Move play() throws IllegalMoveException {
         int col, lig;
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Column:");
         col = scanner.nextInt();
+        System.out.println("Row:");
         lig = scanner.nextInt();
         return new Move(col, lig);
     }

@@ -69,4 +69,29 @@ public class Board implements Comparable{
     public int hashCode() {
         return Arrays.hashCode(board);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int i = BOARD_HEIGHT -1  ; i >= 0 ; i--){
+            for(int j = 0; j < BOARD_WIDTH; j++){
+                sb.append(" ");
+                switch (board[j][i]){
+                    case 1:
+                        sb.append('X');
+                        break;
+                    case 2:
+                        sb.append('O');
+                        break;
+                    default:
+                        sb.append('.');
+                        break;
+                }
+                sb.append("|");
+            }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
 }

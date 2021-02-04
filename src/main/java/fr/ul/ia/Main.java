@@ -30,12 +30,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         Game game = new PancakeGame();
-        // game.start();
-        PancakeState state = PancakeState.getInitialState();
-        List<Move> moves = state.getAvailableMoves();
-
-        System.out.println(moves.size());
-
+        game.start();
 
         //launch(args);
     }
