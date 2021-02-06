@@ -7,10 +7,9 @@ import fr.ul.ia.exception.PancakeException;
 
 public class PancakeGame implements Game {
 
-    private State currentState;
+    private PancakeState currentState;
 
     private Player players[];
-    private int currentPlayer;
     public static final int nbDiscsToWin = 4;
 
     public PancakeGame() {
@@ -26,15 +25,22 @@ public class PancakeGame implements Game {
         players[0] = new HumanPlayer();
         players[1] = new HumanPlayer();
 
-        currentPlayer = 0;
+        currentState.applyMove(currentState.getAvailableMoves().get(0));
+        currentState.applyMove(currentState.getAvailableMoves().get(0));
+        currentState.applyMove(currentState.getAvailableMoves().get(0));
+        currentState.applyMove(currentState.getAvailableMoves().get(0));
+        currentState.applyMove(currentState.getAvailableMoves().get(0));
+
     }
 
     @Override
     public void start() {
         while(!isFinished()){
+            displayState();
             evolve();
-            System.out.println(currentState.toString());
         }
+        displayState();
+        displayEnd();
     }
 
     @Override
@@ -44,11 +50,44 @@ public class PancakeGame implements Game {
 
     @Override
     public void evolve() {
-        nextPlayer();
-        currentState.applyMove(players[currentPlayer].play());
+        boolean hasPlayed = false;
+        while(!hasPlayed) {
+            try{
+                Move move = players[getCurrentPlayer()].play();
+                currentState.applyMove(move);
+                hasPlayed = true;
+            } catch (Exception e) {
+                hasPlayed = false;
+            }
+        }
     }
 
-    void nextPlayer(){
-        currentPlayer = (currentPlayer + 1)%2;
+
+    void displayState(){
+        System.out.println("Turn: player "+ getCurrentPlayer());
+        System.out.println(currentState.toString() + " 0| 1| 2| 3| 4| 5| 6|");
+    }
+
+    void displayEnd(){
+        String endState = "";
+        switch (currentState.testEnd()){
+            case DRAW:
+                endState = "Draw";
+                break;
+            case PLAYER1_WON:
+                endState = "Player 1 won";
+                break;
+            case PLAYER2_WON:
+                endState = "Player 2 won";
+                break;
+            case NOT_FINISHED:
+                endState = "The game is not finished";
+                break;
+        }
+        System.out.println(endState);
+    }
+
+    private int getCurrentPlayer(){
+        return currentState.getCurrentPlayer() - 1;
     }
 }

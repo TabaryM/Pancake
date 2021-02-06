@@ -12,7 +12,6 @@ public class PancakeState implements State {
     public final static int PLAYER1 = 1;
     public final static int PLAYER2 = 2;
 
-    private int player;
     private int currentPlayer;
     private final Board board;
 
@@ -98,7 +97,7 @@ public class PancakeState implements State {
 
         for(int i = 0; i < Board.BOARD_WIDTH; i++){
             int j = Board.BOARD_HEIGHT - 1;
-            Boolean found = false;
+            boolean found = false;
             while( j > 0 && !found){
                 if(board.get(i,j) == 0 && board.get(i,j-1) != 0){
                     found = true;
@@ -124,4 +123,7 @@ public class PancakeState implements State {
         return board.compareTo(((PancakeState)o).board);
     }
 
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
 }
