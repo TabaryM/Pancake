@@ -1,5 +1,7 @@
 package fr.ul.ia.engine;
 
+import fr.ul.ia.modele.Board;
+
 public interface Game {
     /**
      * Initialize the objects used in the game
@@ -24,4 +26,5 @@ public interface Game {
      */
     void evolve();
 
+    Board getBoard();
 }

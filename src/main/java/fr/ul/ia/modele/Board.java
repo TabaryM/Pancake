@@ -1,6 +1,7 @@
 package fr.ul.ia.modele;
 
 import fr.ul.ia.exception.IllegalBoardModificationException;
+import fr.ul.ia.exception.IllegalMoveException;
 
 import java.util.Arrays;
 
@@ -13,6 +14,7 @@ public class Board implements Comparable{
 
     public Board(){
         nbToken = 0;
+        System.out.println(Arrays.deepToString(board));
     }
 
     public Board(Board board){
@@ -34,7 +36,7 @@ public class Board implements Comparable{
      * @throws IllegalBoardModificationException if there is token in the case (i,j) and the game try to change this token with another.
      */
     public void set(int i, int j, int value){
-        if(board[i][j] != 0 && value != 0 && value != board[i][j]){
+        if(!isEmpty(i, j) && value != 0 && value != board[i][j]){
             throw new IllegalBoardModificationException("A player cannot replace an other's player token !");
         }
         if(value != 0){
@@ -47,8 +49,34 @@ public class Board implements Comparable{
         board[i][j] = value;
     }
 
+    public boolean isEmpty(int col, int lig){
+        return board[col][lig] == 0;
+    }
+
     public int getNbToken(){
         return nbToken;
+    }
+
+    /**
+     * Find where the line at wich the token fall for a given column.
+     * @param col the column where the player put his token
+     * @return the line where the token has landed
+     * @throws IllegalMoveException if the column is full of token
+     */
+    public int getPlayableLineAt(int col) throws IllegalMoveException{
+        int line = -1;
+        for (int i = BOARD_HEIGHT-1; i > 0; i--){
+            System.out.println("at line : " + i + " value : " + board[col][i]);
+            if(board[col][i] == 0){
+                line = i;
+            } else {
+                break;
+            }
+        }
+        if(line == -1){
+            throw new IllegalMoveException("This line is already full", new Move(col, BOARD_HEIGHT));
+        }
+        return line;
     }
 
     @Override

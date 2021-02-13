@@ -1,10 +1,10 @@
 package fr.ul.ia.modele;
 
+import fr.ul.ia.engine.Game;
 import fr.ul.ia.engine.State;
 import fr.ul.ia.exception.IllegalMoveException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PancakeState implements State {
@@ -39,7 +39,7 @@ public class PancakeState implements State {
             board.set(move.getColumn(),move.getRow(), currentPlayer);
             nextPlayer();
         } else {
-            throw new IllegalMoveException("Can't execute the move");
+            throw new IllegalMoveException("Can't execute the move", move);
         }
     }
 
@@ -116,6 +116,11 @@ public class PancakeState implements State {
             }
         }
         return avaibleMoves;
+    }
+
+    @Override
+    public Board getCurrentBoard() {
+        return board;
     }
 
     @Override

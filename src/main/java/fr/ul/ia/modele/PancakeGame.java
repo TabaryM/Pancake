@@ -22,8 +22,8 @@ public class PancakeGame implements Game {
 
         players = new Player[2];
 
-        players[0] = new HumanPlayer();
-        players[1] = new HumanPlayer();
+        players[0] = new HumanPlayer(this, "Alice");
+        players[1] = new HumanPlayer(this, "Bob");
 
         currentState.applyMove(currentState.getAvailableMoves().get(0));
         currentState.applyMove(currentState.getAvailableMoves().get(0));
@@ -87,7 +87,13 @@ public class PancakeGame implements Game {
         System.out.println(endState);
     }
 
+    @Override
+    public Board getBoard() {
+        return currentState.getCurrentBoard();
+    }
+
     private int getCurrentPlayer(){
         return currentState.getCurrentPlayer() - 1;
     }
+
 }

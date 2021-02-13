@@ -1,5 +1,6 @@
 package fr.ul.ia.engine;
 
+import fr.ul.ia.modele.Board;
 import fr.ul.ia.modele.EndState;
 import fr.ul.ia.modele.Move;
 import fr.ul.ia.exception.IllegalMoveException;
@@ -36,4 +37,6 @@ public interface State extends Comparable{
      *         If no moves are available, the list is empty.
      */
     List<Move> getAvailableMoves();
+
+    Board getCurrentBoard();
 }
