@@ -64,19 +64,18 @@ public class Board implements Comparable{
      * @throws IllegalMoveException if the column is full of token
      */
     public int getPlayableLineAt(int col) throws IllegalMoveException{
-        int line = -1;
+        int row = -1;
         for (int i = BOARD_HEIGHT-1; i >= 0; i--){
-            System.out.println("at line : " + i + " value : " + board[col][i]);
             if(board[col][i] == 0){
-                line = i;
+                row = i;
             } else {
                 break;
             }
         }
-        if(line == -1){
-            throw new IllegalMoveException("This line is already full", new Move(col, BOARD_HEIGHT));
+        if(row == -1){
+            throw new IllegalMoveException("This column is already full", new Move(col, row));
         }
-        return line;
+        return row;
     }
 
     @Override

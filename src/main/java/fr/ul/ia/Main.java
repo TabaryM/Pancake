@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Main extends Application {
@@ -33,7 +34,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         Game game = new PancakeGame();
         game.start();
-
+        System.out.println("Le jeu est fini, vous pouvez partir");
+        System.exit(0);
         //launch(args);
     }
 }

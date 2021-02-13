@@ -19,6 +19,6 @@ public class Move {
 
     @Override
     public String toString() {
-        return "[" + row + " ; " + column + ']';
+        return "[" + column + " ; " + row + ']';
     }
 }
