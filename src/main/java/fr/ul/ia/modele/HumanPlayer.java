@@ -20,9 +20,9 @@ public class HumanPlayer implements Player {
         int col, lig;
         Board board = game.getBoard();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Column:");
+        System.out.print("Column:");
         col = scanner.nextInt();
-        System.out.println("Row:");
+        System.out.print('\n');
         lig = board.getPlayableLineAt(col);
         return new Move(col, lig);
     }

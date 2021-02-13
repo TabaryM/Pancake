@@ -9,7 +9,7 @@ public class PancakeGame implements Game {
 
     private PancakeState currentState;
 
-    private Player players[];
+    private Player[] players;
     public static final int nbDiscsToWin = 4;
 
     public PancakeGame() {
@@ -24,12 +24,12 @@ public class PancakeGame implements Game {
 
         players[0] = new HumanPlayer(this, "Alice");
         players[1] = new HumanPlayer(this, "Bob");
-
+/*
         currentState.applyMove(currentState.getAvailableMoves().get(0));
         currentState.applyMove(currentState.getAvailableMoves().get(0));
         currentState.applyMove(currentState.getAvailableMoves().get(0));
         currentState.applyMove(currentState.getAvailableMoves().get(0));
-        currentState.applyMove(currentState.getAvailableMoves().get(0));
+        currentState.applyMove(currentState.getAvailableMoves().get(0));*/
 
     }
 
@@ -53,7 +53,7 @@ public class PancakeGame implements Game {
         boolean hasPlayed = false;
         while(!hasPlayed) {
             try{
-                Move move = players[getCurrentPlayer()].play();
+                Move move = getCurrentPlayer().play();
                 currentState.applyMove(move);
                 hasPlayed = true;
             } catch (Exception e) {
@@ -92,8 +92,8 @@ public class PancakeGame implements Game {
         return currentState.getCurrentBoard();
     }
 
-    private int getCurrentPlayer(){
-        return currentState.getCurrentPlayer() - 1;
+    private Player getCurrentPlayer(){
+        return players[currentState.getCurrentPlayer() -1];
     }
 
 }

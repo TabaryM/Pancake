@@ -65,7 +65,7 @@ public class Board implements Comparable{
      */
     public int getPlayableLineAt(int col) throws IllegalMoveException{
         int line = -1;
-        for (int i = BOARD_HEIGHT-1; i > 0; i--){
+        for (int i = BOARD_HEIGHT-1; i >= 0; i--){
             System.out.println("at line : " + i + " value : " + board[col][i]);
             if(board[col][i] == 0){
                 line = i;
