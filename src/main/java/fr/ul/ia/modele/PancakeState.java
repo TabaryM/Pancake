@@ -1,6 +1,7 @@
 package fr.ul.ia.modele;
 
 import fr.ul.ia.engine.Game;
+import fr.ul.ia.engine.Player;
 import fr.ul.ia.engine.State;
 import fr.ul.ia.exception.IllegalMoveException;
 
@@ -13,7 +14,7 @@ public class PancakeState implements State {
     public final static int PLAYER2 = 2;
 
     private int currentPlayer;
-    private final Board board;
+    private Board board;
 
     private PancakeState(){
         board = new Board();
@@ -24,9 +25,21 @@ public class PancakeState implements State {
         currentPlayer = currentPlayer %2 + 1;
     }
 
-    public PancakeState(PancakeState pancakeState){
-        board = new Board(pancakeState.board);
-        currentPlayer = pancakeState.currentPlayer;
+    public State getCopy(){
+        PancakeState copy = new PancakeState();
+        copy.setBoard(board);
+        copy.setCurrentPlayer(currentPlayer);
+        return copy;
+    }
+
+    @Override
+    public void setBoard(Board board) {
+        this.board = new Board(board);
+    }
+
+    @Override
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public static PancakeState getInitialState(){
@@ -48,7 +61,7 @@ public class PancakeState implements State {
 
         int nbMoves = 0;
         int counter;
-        for (int i = 0; i < Board.BOARD_WIDTH; i ++){
+        for (int i = 0; i < Board.BOARD_WIDTH; i++){
             for (int j = 0; j < Board.BOARD_HEIGHT; j++){
                 if(board.get(i,j) != 0){
                     nbMoves++;
@@ -60,7 +73,7 @@ public class PancakeState implements State {
                         return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;
 
                     counter = 0;
-                    while( counter < PancakeGame.nbDiscsToWin && j + counter < Board.BOARD_HEIGHT && board.get(i,+counter) == board.get(i,j))
+                    while( counter < PancakeGame.nbDiscsToWin && j + counter < Board.BOARD_HEIGHT && board.get(i,j+counter) == board.get(i,j))
                         counter++;
                     if( counter == PancakeGame.nbDiscsToWin)
                         return board.get(i,j) == PancakeState.PLAYER1 ? EndState.PLAYER1_WON : EndState.PLAYER2_WON;

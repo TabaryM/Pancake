@@ -22,8 +22,10 @@ public class PancakeGame implements Game {
 
         players = new Player[2];
 
-        players[0] = new HumanPlayer(this, "Alice");
-        players[1] = new HumanPlayer(this, "Bob");
+        players[0] = new AIPlayer(this, MCTS.getInstance());
+        //players[0] = new HumanPlayer(this, "Alice");
+        //players[1] = new HumanPlayer(this, "Bob");
+        players[1] = new AIPlayer(this, MCTS.getInstance());
     }
 
     @Override
@@ -60,6 +62,7 @@ public class PancakeGame implements Game {
     void displayState(){
         System.out.println("Turn: player "+ getCurrentPlayer());
         System.out.println(currentState.toString() + " 0| 1| 2| 3| 4| 5| 6|");
+        System.out.println(currentState.testEnd());
     }
 
     void displayEnd(){
@@ -90,4 +93,7 @@ public class PancakeGame implements Game {
         return players[currentState.getCurrentPlayer() -1];
     }
 
+    public PancakeState getCurrentState() {
+        return currentState;
+    }
 }

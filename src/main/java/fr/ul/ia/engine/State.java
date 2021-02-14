@@ -39,4 +39,10 @@ public interface State extends Comparable{
     List<Move> getAvailableMoves();
 
     Board getCurrentBoard();
+
+    State getCopy();
+
+    void setBoard(Board board);
+
+    void setCurrentPlayer(int currentPlayer);
 }

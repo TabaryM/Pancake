@@ -14,7 +14,6 @@ public class Board implements Comparable{
 
     public Board(){
         nbToken = 0;
-        System.out.println(Arrays.deepToString(board));
     }
 
     public Board(Board board){

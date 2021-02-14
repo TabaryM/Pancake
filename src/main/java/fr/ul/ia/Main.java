@@ -1,9 +1,7 @@
 package fr.ul.ia;
 
 import fr.ul.ia.engine.Game;
-import fr.ul.ia.modele.Move;
-import fr.ul.ia.modele.PancakeGame;
-import fr.ul.ia.modele.PancakeState;
+import fr.ul.ia.modele.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,7 +33,9 @@ public class Main extends Application {
         Game game = new PancakeGame();
         game.start();
         System.out.println("Le jeu est fini, vous pouvez partir");
+
         System.exit(0);
+
         //launch(args);
     }
 }

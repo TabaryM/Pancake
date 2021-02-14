@@ -1,6 +1,7 @@
 package fr.ul.ia.engine;
 
 import fr.ul.ia.exception.InvalidTreeException;
+import fr.ul.ia.modele.Move;
 
 import java.util.List;
 
@@ -24,4 +25,27 @@ public interface Tree extends Iterable<Tree>{
      * @return this.state
      */
     State getState();
+
+    int getNumberSimulation();
+
+    int getSumSimulation();
+
+    double getBValue();
+
+    Tree getFather();
+
+    State getCurrentState();
+
+    Tree getCopy();
+
+    boolean isMax();
+
+    boolean isExpanded();
+
+    void setExpanded(boolean expanded);
+
+    void addSimulation(int n,int r);
+
+    Move getMoveFromPreviousState();
+
 }

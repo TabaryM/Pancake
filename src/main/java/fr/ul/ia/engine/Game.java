@@ -26,5 +26,7 @@ public interface Game {
      */
     void evolve();
 
+    State getCurrentState();
+
     Board getBoard();
 }
