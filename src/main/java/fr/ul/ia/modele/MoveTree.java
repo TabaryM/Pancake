@@ -56,7 +56,7 @@ public class MoveTree implements Tree {
 
     @Override
     public double getBValue() {
-        return (max ? 1 : -1) *  ((float)sumSimulation/numberSimulation) + c *Math.sqrt(Math.log(father.getNumberSimulation())/numberSimulation);
+        return (max ? 1 : -1) *  ((float)sumSimulation/numberSimulation) + c *Math.sqrt(Math.log(father.getNumberSimulation())/(double)numberSimulation);
     }
 
     @Override

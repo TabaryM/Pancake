@@ -12,7 +12,7 @@ public class MCTS implements AIStrategy {
     private Tree root;
     private static MCTS instance;
 
-    private final int TIME = 3000;
+    private final int TIME = 5000;
 
     public static MCTS getInstance() {
         if(instance == null)
@@ -31,20 +31,10 @@ public class MCTS implements AIStrategy {
             backPropagation(selected,simulate(selected));
         }
 
-        double max = Integer.MIN_VALUE;
-        int indexMax = -1;
-        List<Tree> childrens = root.getChildren();
-        for (int i = 0; i < childrens.size();i++){
-            if((double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation() > max){
-                max = (double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation();
-                indexMax = i;
-            }
-            System.out.println(childrens.get(i).getMoveFromPreviousState() + " nb sim:"+childrens.get(i).getNumberSimulation()+": "+((float)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation())*100 + "% de vic");
-        }
 
 
+        return chooseBestMove().getMoveFromPreviousState();
 
-        return childrens.get(indexMax).getMoveFromPreviousState();
     }
 
     private static Tree select(Tree tree){
@@ -59,7 +49,7 @@ public class MCTS implements AIStrategy {
                 expand(tempTree);
             }
             double bValueMax = Integer.MIN_VALUE;
-            int indexBValueMax = -1;
+            int indexBValueMax = 0;
             boolean childrensAllExpanded = true;
             Tree firstNotExpanded = null;
 
@@ -92,8 +82,8 @@ public class MCTS implements AIStrategy {
             copy.applyMove(m);
             Tree children = new MoveTree(m,copy,!tree.isMax(),tree);
             tree.addChildren(children);
-            tree.setExpanded(true);
         }
+        tree.setExpanded(true);
     }
 
     private static int simulate(Tree tree){
@@ -114,5 +104,31 @@ public class MCTS implements AIStrategy {
             backPropagation(tree.getFather(),r);
     }
 
+    private Tree chooseBestMove(){
+        double max = Integer.MIN_VALUE;
+        int indexMax = -1;
+        int sum = 0;
+        List<Tree> childrens = root.getChildren();
+        for (int i = 0; i < childrens.size();i++){
+            if((double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation() == 100.0){
+                indexMax = i;
+                max = Integer.MAX_VALUE;
+            }
+            if((double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation() > max){
+                max = (double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation();
+                indexMax = i;
+            }
+            sum += childrens.get(i).getNumberSimulation();
+
+            System.out.println(childrens.get(i).getMoveFromPreviousState() + " nb sim:"+childrens.get(i).getNumberSimulation()+": "+((float)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation())*100 + "% de vic");
+        }
+
+        System.out.println("total simulation:"+sum);
+
+
+
+        return childrens.get(indexMax);
+
+    }
 
 }
