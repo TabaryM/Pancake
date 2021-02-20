@@ -44,5 +44,5 @@ public interface State extends Comparable{
 
     void setBoard(Board board);
 
-    void setCurrentPlayer(int currentPlayer);
+    void setCurrentPlayer(Player currentPlayer);
 }

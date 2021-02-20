@@ -32,4 +32,9 @@ public class RandomStrategy implements AIStrategy {
 
         return listMov.get(r.nextInt(listMov.size()));
     }
+
+    @Override
+    public String getName() {
+        return "Random";
+    }
 }

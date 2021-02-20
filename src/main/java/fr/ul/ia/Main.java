@@ -32,8 +32,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         Game game = new PancakeGame();
         game.start();
-        System.out.println("Le jeu est fini, vous pouvez partir");
-
         System.exit(0);
 
         //launch(args);

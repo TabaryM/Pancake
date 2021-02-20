@@ -2,8 +2,7 @@ package fr.ul.ia.modele;
 
 import fr.ul.ia.engine.Game;
 import fr.ul.ia.engine.Player;
-import fr.ul.ia.engine.State;
-import fr.ul.ia.exception.PancakeException;
+import fr.ul.ia.exception.IllegalMoveException;
 
 public class PancakeGame implements Game {
 
@@ -13,7 +12,6 @@ public class PancakeGame implements Game {
     public static final int nbDiscsToWin = 4;
 
     public PancakeGame() {
-        currentState = PancakeState.getInitialState();
         init();
     }
 
@@ -22,10 +20,11 @@ public class PancakeGame implements Game {
 
         players = new Player[2];
 
-        players[0] = new AIPlayer(this, MCTS.getInstance());
-        //players[0] = new HumanPlayer(this, "Alice");
-        //players[1] = new HumanPlayer(this, "Bob");
-        players[1] = new AIPlayer(this, MCTS.getInstance());
+        players[0] = new AIPlayer(this, MCTS.getInstance(), "Arnold", 1);
+        //players[0] = new HumanPlayer(this, "Alice", 1);
+        //players[1] = new HumanPlayer(this, "Bob", 2);
+        players[1] = new AIPlayer(this, MCTS.getInstance(), "BB-8", 2);
+        currentState = PancakeState.getInitialState(players);
     }
 
     @Override
@@ -51,13 +50,12 @@ public class PancakeGame implements Game {
                 Move move = getCurrentPlayer().play();
                 currentState.applyMove(move);
                 hasPlayed = true;
-            } catch (Exception e) {
+            } catch (IllegalMoveException e) {
                 System.out.println(e.getMessage());
                 hasPlayed = false;
             }
         }
     }
-
 
     void displayState(){
         System.out.println("Turn: player "+ getCurrentPlayer());
@@ -90,7 +88,7 @@ public class PancakeGame implements Game {
     }
 
     private Player getCurrentPlayer(){
-        return players[currentState.getCurrentPlayer() -1];
+        return currentState.getCurrentPlayer();
     }
 
     public PancakeState getCurrentState() {

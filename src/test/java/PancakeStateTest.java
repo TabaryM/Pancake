@@ -1,3 +1,4 @@
+import fr.ul.ia.engine.Player;
 import fr.ul.ia.modele.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,8 @@ public class PancakeStateTest {
 
     @BeforeEach
     void setUp() {
+
+        PancakeGame game = new PancakeGame();
         state = PancakeState.getInitialState();
     }
 

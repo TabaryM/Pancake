@@ -102,18 +102,8 @@ public class Board implements Comparable{
         for(int i = BOARD_HEIGHT -1  ; i >= 0 ; i--){
             for(int j = 0; j < BOARD_WIDTH; j++){
                 sb.append(" ");
-                switch (board[j][i]){
-                    case 1:
-                        sb.append('X');
-                        break;
-                    case 2:
-                        sb.append('O');
-                        break;
-                    default:
-                        sb.append('.');
-                        break;
-                }
-                sb.append("|");
+                sb.append(PancakePlayer.getToken(board[j][i]));
+                sb.append('|');
             }
             sb.append("\n");
         }

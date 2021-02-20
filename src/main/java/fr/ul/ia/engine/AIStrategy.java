@@ -9,4 +9,6 @@ public interface AIStrategy {
      * @return the move chosen by the strategy
      */
     Move getNextMove(State state);
+
+    String getName();
 }

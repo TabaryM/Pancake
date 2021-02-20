@@ -6,34 +6,24 @@ import fr.ul.ia.exception.IllegalMoveException;
 
 import java.util.Scanner;
 
-public class HumanPlayer implements Player {
-    private Game game;
-    private String playerName;
-
-    public HumanPlayer(Game game, String playerName) {
-        this.game = game;
-        this.playerName = playerName;
+public class HumanPlayer extends PancakePlayer {
+    public HumanPlayer(Game game, String name, int num) {
+        super(game, name, num);
     }
 
     @Override
     public Move play() throws IllegalMoveException {
         int col, lig;
-        Board board = game.getBoard();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Column:");
         col = scanner.nextInt();
         System.out.print('\n');
-        lig = board.getPlayableLineAt(col);
+        lig = getBoard().getPlayableLineAt(col);
         return new Move(col, lig);
     }
 
     @Override
-    public Board getBoard() {
-        return game.getBoard();
-    }
-
-    @Override
     public String toString() {
-        return "HumanPlayer{" + playerName + '}';
+        return "HumanPlayer{" + getName() + '(' + getToken(getNum()) + ')' +'}';
     }
 }

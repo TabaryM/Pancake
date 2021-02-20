@@ -1,9 +1,9 @@
 package fr.ul.ia.modele;
 
-import fr.ul.ia.engine.Game;
 import fr.ul.ia.engine.Player;
 import fr.ul.ia.engine.State;
 import fr.ul.ia.exception.IllegalMoveException;
+import fr.ul.ia.exception.UnknownPlayerException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,20 +13,23 @@ public class PancakeState implements State {
     public final static int PLAYER1 = 1;
     public final static int PLAYER2 = 2;
 
-    private int currentPlayer;
+    private final Player[] players;
+    private Player currentPlayer;
+
     private Board board;
 
-    private PancakeState(){
+    private PancakeState(Player[] players){
+        this.players = players;
         board = new Board();
-        currentPlayer = 1;
+        currentPlayer = players[0];
     }
 
     private void nextPlayer(){
-        currentPlayer = currentPlayer %2 + 1;
+        currentPlayer = players[currentPlayer.getNum() %2];
     }
 
     public State getCopy(){
-        PancakeState copy = new PancakeState();
+        PancakeState copy = new PancakeState(players);
         copy.setBoard(board);
         copy.setCurrentPlayer(currentPlayer);
         return copy;
@@ -38,18 +41,32 @@ public class PancakeState implements State {
     }
 
     @Override
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void setCurrentPlayer(Player player){
+        int i = 0;
+        while (i < players.length - 1 && player.equals(players[i])) i++;
+        if(i == players.length) throw new UnknownPlayerException("Unknown player "+player.toString());
+        else currentPlayer = player;
     }
 
     public static PancakeState getInitialState(){
-        return new PancakeState();
+        Player[] players;
+        players = new Player[2];
+
+        players[0] = new AIPlayer(new PancakeGame(), MCTS.getInstance(), "Arnold", 1);
+        //players[0] = new HumanPlayer(this, "Alice", 1);
+        //players[1] = new HumanPlayer(this, "Bob", 2);
+        players[1] = new AIPlayer(new PancakeGame(), MCTS.getInstance(), "BB-8", 2);
+        return new PancakeState(players);
+    }
+
+    public static PancakeState getInitialState(Player[] players){
+        return new PancakeState(players);
     }
 
     @Override
     public void applyMove(Move move) throws IllegalMoveException {
         if(board.get(move.getColumn(),move.getRow()) == 0){
-            board.set(move.getColumn(),move.getRow(), currentPlayer);
+            board.set(move.getColumn(),move.getRow(), currentPlayer.getNum());
             nextPlayer();
         } else {
             throw new IllegalMoveException("Can't execute the move", move);
@@ -141,7 +158,8 @@ public class PancakeState implements State {
         return board.compareTo(((PancakeState)o).board);
     }
 
-    public int getCurrentPlayer() {
+
+    public Player getCurrentPlayer(){
         return currentPlayer;
     }
 }

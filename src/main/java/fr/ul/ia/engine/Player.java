@@ -18,4 +18,12 @@ public interface Player {
      * @return the current board of the game.
      */
     Board getBoard();
+
+    /**
+     * Retourne le nom du joueur
+     * @return this.name
+     */
+    String getName();
+
+    int getNum();
 }

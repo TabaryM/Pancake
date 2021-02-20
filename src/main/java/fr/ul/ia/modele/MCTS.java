@@ -31,10 +31,13 @@ public class MCTS implements AIStrategy {
             backPropagation(selected,simulate(selected));
         }
 
-
-
         return chooseBestMove().getMoveFromPreviousState();
 
+    }
+
+    @Override
+    public String getName() {
+        return "MCTS";
     }
 
     private static Tree select(Tree tree){
@@ -135,12 +138,14 @@ public class MCTS implements AIStrategy {
             }
             sum += childrens.get(i).getNumberSimulation();
 
-            System.out.println(childrens.get(i).getMoveFromPreviousState() + " nb sim:"+childrens.get(i).getNumberSimulation()+": "+((float)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation())*100 + "% de vic");
+            System.out.println(childrens.get(i).getMoveFromPreviousState()
+                    + " nb sim:"+childrens.get(i).getNumberSimulation()
+                    + ": "
+                    +((float)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation())*100
+                    + "% de vic");
         }
 
         System.out.println("total simulation:"+sum);
-
-
 
         return childrens.get(indexMax);
 
