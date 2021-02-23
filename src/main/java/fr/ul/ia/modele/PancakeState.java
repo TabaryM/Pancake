@@ -1,5 +1,6 @@
 package fr.ul.ia.modele;
 
+import fr.ul.ia.engine.Game;
 import fr.ul.ia.engine.Player;
 import fr.ul.ia.engine.State;
 import fr.ul.ia.exception.IllegalMoveException;
@@ -48,18 +49,20 @@ public class PancakeState implements State {
         else currentPlayer = player;
     }
 
-    public static PancakeState getInitialState(){
+    public static PancakeState getInitialState(Game game){
+        // TODO : essayer d'unifier avec getInitialState(Player[] players) qui est utilisé dans le PancakeGame
         Player[] players;
         players = new Player[2];
 
-        players[0] = new AIPlayer(new PancakeGame(), MCTS.getInstance(), "Arnold", 1);
-        //players[0] = new HumanPlayer(this, "Alice", 1);
-        //players[1] = new HumanPlayer(this, "Bob", 2);
-        players[1] = new AIPlayer(new PancakeGame(), MCTS.getInstance(), "BB-8", 2);
+        players[0] = new AIPlayer(game, MCTS.getInstance(), "Arnold", 1);
+//        players[0] = new HumanPlayer(game, "Alice", 1);
+//        players[1] = new HumanPlayer(game, "Bob", 2);
+        players[1] = new AIPlayer(game, MCTS.getInstance(), "BB-8", 2);
         return new PancakeState(players);
     }
 
     public static PancakeState getInitialState(Player[] players){
+        // TODO : essayer d'unifier avec getInitialState(Game game) qui est utilisé dans les tests de PancakeState
         return new PancakeState(players);
     }
 

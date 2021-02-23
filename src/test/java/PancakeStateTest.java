@@ -18,7 +18,7 @@ public class PancakeStateTest {
     void setUp() {
 
         PancakeGame game = new PancakeGame();
-        state = PancakeState.getInitialState();
+        state = PancakeState.getInitialState(game);
     }
 
     // compareTo : testé via compareTo de board

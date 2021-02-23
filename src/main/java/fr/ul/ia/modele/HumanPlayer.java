@@ -4,6 +4,7 @@ import fr.ul.ia.engine.Game;
 import fr.ul.ia.engine.Player;
 import fr.ul.ia.exception.IllegalMoveException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class HumanPlayer extends PancakePlayer {
@@ -13,17 +14,23 @@ public class HumanPlayer extends PancakePlayer {
 
     @Override
     public Move play() throws IllegalMoveException {
-        int col, lig;
+        int col = -1, lig;
+        boolean hasPlayed = false;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Column:");
-        col = scanner.nextInt();
-        System.out.print('\n');
+        // TODO : gérer les inputs invalides
+        do{
+            System.out.println("Input a number between 0 and "+(Board.BOARD_WIDTH - 1));
+            col = scanner.nextInt();
+            hasPlayed = (col > 0 || col <= Board.BOARD_WIDTH);
+        }
+        while(!hasPlayed);
         lig = getBoard().getPlayableLineAt(col);
         return new Move(col, lig);
     }
 
     @Override
     public String toString() {
-        return "HumanPlayer{" + getName() + '(' + getToken(getNum()) + ')' +'}';
+        return getNum()+" HumanPlayer{" + getName() + '(' + getToken(getNum()) + ')' +'}';
     }
 }

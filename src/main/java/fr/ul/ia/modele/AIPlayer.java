@@ -20,6 +20,6 @@ public class AIPlayer extends PancakePlayer {
 
     @Override
     public String toString() {
-        return "AIPlayer{"+ getName() + '(' + getToken(getNum()) + ") : " +strat.getName() +"}";
+        return getNum()+" AIPlayer{"+ getName() + '(' + getToken(getNum()) + ") : " +strat.getName() +"}";
     }
 }
