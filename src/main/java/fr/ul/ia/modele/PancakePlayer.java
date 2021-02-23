@@ -1,5 +1,6 @@
 package fr.ul.ia.modele;
 
+import fr.ul.ia.Main;
 import fr.ul.ia.engine.Game;
 import fr.ul.ia.engine.Player;
 
@@ -36,13 +37,27 @@ public abstract class PancakePlayer implements Player {
     }
 
     public static String getToken(int numPlayer){
+        StringBuilder stringBuilder = new StringBuilder();
         if(numPlayer == 1){
-            return "\033[31mX\033[0m";
+            if(Main.haveEC) {
+                stringBuilder.append(Main.beginEC).append("31").append(Main.endEC);
+            }
+            stringBuilder.append('X');
+            if(Main.haveEC) {
+                stringBuilder.append(Main.beginEC).append("0").append(Main.endEC);
+            }
         } else if (numPlayer == 2){
-            return "\033[33mO\033[0m";
+            if(Main.haveEC) {
+                stringBuilder.append(Main.beginEC).append("33").append(Main.endEC);
+            }
+            stringBuilder.append('0');
+            if(Main.haveEC) {
+                stringBuilder.append(Main.beginEC).append("0").append(Main.endEC);
+            }
         } else {
-            return " ";
+            stringBuilder.append(' ');
         }
+        return stringBuilder.toString();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package fr.ul.ia.modele;
 
+import fr.ul.ia.Main;
 import fr.ul.ia.engine.AIStrategy;
 import fr.ul.ia.engine.State;
 import fr.ul.ia.engine.Tree;
@@ -148,12 +149,25 @@ public class MCTS implements AIStrategy {
         stringBuilder.append("total simulation : ").append(sum).append("\n");
         for(int i = 0; i < childrens.size();i++) {
             if(i == indexMax){
-                stringBuilder.append("\033[32m");
+                if(Main.haveEC){
+                    stringBuilder.append(Main.beginEC);
+                    stringBuilder.append("32");
+                    stringBuilder.append(Main.endEC);
+                }
             }
             stringBuilder.append(childrens.get(i).getMoveFromPreviousState());
             stringBuilder.append(" nb sim:").append(childrens.get(i).getNumberSimulation());
             stringBuilder.append(": ").append(((float) childrens.get(i).getSumSimulation() / childrens.get(i).getNumberSimulation()) * 100);
-            stringBuilder.append("% de vic\033[0m\n");
+            stringBuilder.append("% de vic");
+            if(Main.haveEC){
+                stringBuilder.append(Main.beginEC);
+                stringBuilder.append("0");
+                stringBuilder.append(Main.endEC);
+            }
+            if(i == indexMax){
+                stringBuilder.append("\t<--");
+            }
+            stringBuilder.append("\n");
         }
 
         System.out.println(stringBuilder.toString());
