@@ -105,12 +105,13 @@ public class MCTS implements AIStrategy {
             Tree children = null;
             boolean winingMove = false;
 
+
             ///QUESTION 3 ///
             int i = 0;
             while(!winingMove && i < childrens.size()){
                 children = childrens.get(i);
 
-                winingMove = children.getCurrentState().testEnd() != EndState.NOT_FINISHED && !tempTree.isMax();
+                winingMove = children.getCurrentState().testEnd() != EndState.NOT_FINISHED  && tempTree.isMax();
 
                 i++;
             }
