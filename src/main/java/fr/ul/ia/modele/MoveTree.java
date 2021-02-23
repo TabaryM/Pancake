@@ -17,7 +17,7 @@ public class MoveTree implements Tree {
     private int numberSimulation = 0;
     private int sumSimulation = 0;
     private final boolean max;
-    private final double c = 2;//Math.sqrt(2);
+    private final double c = Math.sqrt(2);
 
     public MoveTree(Move moveFromPreviousSate, State currentState,boolean max,Tree father) {
         this.moveFromPreviousSate = moveFromPreviousSate;
