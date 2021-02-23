@@ -28,7 +28,7 @@ public interface Tree extends Iterable<Tree>{
 
     int getNumberSimulation();
 
-    int getSumSimulation();
+    float getSumSimulation();
 
     double getBValue();
 
@@ -44,7 +44,7 @@ public interface Tree extends Iterable<Tree>{
 
     void setExpanded(boolean expanded);
 
-    void addSimulation(int n,int r);
+    void addSimulation(int n,float r);
 
     Move getMoveFromPreviousState();
 
