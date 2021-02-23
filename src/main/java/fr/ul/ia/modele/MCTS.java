@@ -99,7 +99,6 @@ public class MCTS implements AIStrategy {
             Tree children = null;
             boolean winingMove = false;
 
-
             ///QUESTION 3 ///
             int i = 0;
             while(!winingMove && i < childrens.size()){
@@ -116,9 +115,6 @@ public class MCTS implements AIStrategy {
             } else {
                 tempTree = tempTree.getChildren().get(rand.nextInt(tempTree.getChildren().size()));
             }
-
-
-
         }
         r = tempTree.isMax() ? 0 : 1;
         return r;
@@ -146,14 +142,21 @@ public class MCTS implements AIStrategy {
             }
             sum += childrens.get(i).getNumberSimulation();
 
-            System.out.println(childrens.get(i).getMoveFromPreviousState()
-                    + " nb sim:"+childrens.get(i).getNumberSimulation()
-                    + ": "
-                    +((float)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation())*100
-                    + "% de vic");
         }
 
-        System.out.println("total simulation:"+sum);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("total simulation : ").append(sum).append("\n");
+        for(int i = 0; i < childrens.size();i++) {
+            if(i == indexMax){
+                stringBuilder.append("\033[32m");
+            }
+            stringBuilder.append(childrens.get(i).getMoveFromPreviousState());
+            stringBuilder.append(" nb sim:").append(childrens.get(i).getNumberSimulation());
+            stringBuilder.append(": ").append(((float) childrens.get(i).getSumSimulation() / childrens.get(i).getNumberSimulation()) * 100);
+            stringBuilder.append("% de vic\033[0m\n");
+        }
+
+        System.out.println(stringBuilder.toString());
 
         return childrens.get(indexMax);
 
