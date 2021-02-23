@@ -26,6 +26,11 @@ public class MCTS implements AIStrategy {
         root = new MoveTree(null,state,true,null);
 
         long start = System.currentTimeMillis();
+        expand(root);
+        Tree winningMove = preCheckMove();
+
+        if(winningMove != null)
+            return winningMove.getMoveFromPreviousState();
 
         while(System.currentTimeMillis() - start < TIME){
             Tree selected = select(root);
@@ -133,10 +138,6 @@ public class MCTS implements AIStrategy {
         int sum = 0;
         List<Tree> childrens = root.getChildren();
         for (int i = 0; i < childrens.size();i++){
-            if((double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation() == 100.0){
-                indexMax = i;
-                max = Integer.MAX_VALUE;
-            }
             if((double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation() > max){
                 max = (double)childrens.get(i).getSumSimulation()/childrens.get(i).getNumberSimulation();
                 indexMax = i;
@@ -172,8 +173,21 @@ public class MCTS implements AIStrategy {
 
         System.out.println(stringBuilder.toString());
 
-        return childrens.get(indexMax);
 
+
+        return childrens.get(indexMax);
+    }
+
+    private Tree preCheckMove(){
+        boolean winningMove = false;
+        List<Tree> childrens = root.getChildren();
+        int i = 0;
+        while (i < childrens.size() && !winningMove){
+            winningMove = childrens.get(i).getCurrentState().testEnd() != EndState.NOT_FINISHED;
+            i++;
+        }
+
+        return winningMove ? childrens.get(i - 1):null;
     }
 
 }
