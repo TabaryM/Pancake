@@ -15,7 +15,7 @@ public class MoveTree implements Tree {
     private final State currentState;
     private List<Tree> childrens = new ArrayList<>();
     private int numberSimulation = 0;
-    private int sumSimulation = 0;
+    private float sumSimulation = 0;
     private final boolean max;
     private final double c = 2;//Math.sqrt(2);
 
@@ -50,7 +50,7 @@ public class MoveTree implements Tree {
     }
 
     @Override
-    public int getSumSimulation() {
+    public float getSumSimulation() {
         return sumSimulation;
     }
 
@@ -95,7 +95,7 @@ public class MoveTree implements Tree {
     }
 
     @Override
-    public void addSimulation(int n, int r) {
+    public void addSimulation(int n, float r) {
         numberSimulation += n;
         sumSimulation += r;
     }

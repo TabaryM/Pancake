@@ -14,6 +14,7 @@ public class MCTS implements AIStrategy {
     private static MCTS instance;
 
     private final int TIME = 5000;
+    private final int nbSimul = 10;
 
     public static MCTS getInstance() {
         if(instance == null)
@@ -36,6 +37,15 @@ public class MCTS implements AIStrategy {
             Tree selected = select(root);
             backPropagation(selected,simulate(selected));
         }
+
+        /*
+        int i = 0;
+        while(i < nbSimul){
+            Tree selected = select(root);
+            backPropagation(selected,simulate(selected));
+            i++;
+        }
+         */
 
         return chooseBestMove().getMoveFromPreviousState();
 
@@ -95,10 +105,11 @@ public class MCTS implements AIStrategy {
         tree.setExpanded(true);
     }
 
-    private static int simulate(Tree tree){
+    private static float simulate(Tree tree){
         Random rand = new Random();
-        int r = 0;
+        float r = 0;
         Tree tempTree = tree.getCopy();
+        int a = 0;
         while(tempTree.getCurrentState().testEnd() == EndState.NOT_FINISHED){
             expand(tempTree);
             List<Tree> childrens = tempTree.getChildren();
@@ -108,10 +119,10 @@ public class MCTS implements AIStrategy {
 
             ///QUESTION 3 ///
             int i = 0;
-            while(!winingMove && i < childrens.size()){
+            while(!winingMove && i < childrens.size() && tempTree.isMax()){
                 children = childrens.get(i);
 
-                winingMove = children.getCurrentState().testEnd() != EndState.NOT_FINISHED  && tempTree.isMax();
+                winingMove = children.getCurrentState().testEnd() != EndState.NOT_FINISHED;
 
                 i++;
             }
@@ -122,12 +133,15 @@ public class MCTS implements AIStrategy {
             } else {
                 tempTree = tempTree.getChildren().get(rand.nextInt(tempTree.getChildren().size()));
             }
+            a++;
         }
         r = tempTree.isMax() ? 0 : 1;
+        r = tempTree.getCurrentState().testEnd() == EndState.DRAW ? 0.5f : r;
+
         return r;
     }
 
-    private static void backPropagation(Tree tree,int r){
+    private static void backPropagation(Tree tree,float r){
         tree.addSimulation(1,r);
         if(tree.getFather() != null)
             backPropagation(tree.getFather(),r);

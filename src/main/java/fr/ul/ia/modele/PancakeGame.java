@@ -22,8 +22,8 @@ public class PancakeGame implements Game {
 
         players[0] = new AIPlayer(this, MCTS.getInstance(), "Arnold", 1);
         //players[0] = new HumanPlayer(this, "Alice", 1);
-        players[1] = new HumanPlayer(this, "Bob", 2);
-        //players[1] = new AIPlayer(this, MCTS.getInstance(), "BB-8", 2);
+        //players[1] = new HumanPlayer(this, "Bob", 2);
+        players[1] = new AIPlayer(this, MCTS.getInstance(), "BB-8", 2);
         currentState = PancakeState.getInitialState(players);
     }
 
