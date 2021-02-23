@@ -30,6 +30,7 @@ public class PancakeGame implements Game {
     @Override
     public void start() {
         while(!isFinished()){
+            System.out.println("Turn: player "+ getCurrentPlayer().toString());
             displayState();
             evolve();
         }
@@ -58,7 +59,6 @@ public class PancakeGame implements Game {
     }
 
     void displayState(){
-        System.out.println("Turn: player "+ getCurrentPlayer().toString());
         System.out.println(currentState.toString() + " 0| 1| 2| 3| 4| 5| 6|");
         System.out.println(currentState.testEnd());
     }

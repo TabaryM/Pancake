@@ -158,8 +158,8 @@ public class MCTS implements AIStrategy {
                 }
             }
             stringBuilder.append(childrens.get(i).getMoveFromPreviousState());
-            stringBuilder.append(" nb sim:").append(childrens.get(i).getNumberSimulation());
-            stringBuilder.append(": ").append(((float) childrens.get(i).getSumSimulation() / childrens.get(i).getNumberSimulation()) * 100);
+            stringBuilder.append(" nb sim : ").append(childrens.get(i).getNumberSimulation());
+            stringBuilder.append(" : ").append(((float) childrens.get(i).getSumSimulation() / childrens.get(i).getNumberSimulation()) * 100);
             stringBuilder.append("% de vic");
             if(Main.haveEC){
                 stringBuilder.append(Main.beginEC);
@@ -173,8 +173,6 @@ public class MCTS implements AIStrategy {
         }
 
         System.out.println(stringBuilder.toString());
-
-
 
         return childrens.get(indexMax);
     }

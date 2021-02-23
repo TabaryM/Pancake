@@ -16,13 +16,17 @@ public class HumanPlayer extends PancakePlayer {
     public Move play() throws IllegalMoveException {
         int col = -1, lig;
         boolean hasPlayed = false;
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Column:");
         // TODO : gérer les inputs invalides
         do{
-            System.out.println("Input a number between 0 and "+(Board.BOARD_WIDTH - 1));
-            col = scanner.nextInt();
-            hasPlayed = (col > 0 || col <= Board.BOARD_WIDTH);
+            try {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Input a number between 0 and "+(Board.BOARD_WIDTH - 1));
+                col = scanner.nextInt();
+                hasPlayed = (col > 0 && col <= Board.BOARD_WIDTH);
+            } catch (InputMismatchException e){
+                hasPlayed = false;
+            }
         }
         while(!hasPlayed);
         lig = getBoard().getPlayableLineAt(col);
