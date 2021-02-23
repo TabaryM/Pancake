@@ -95,18 +95,26 @@ public class MCTS implements AIStrategy {
             List<Tree> childrens = tempTree.getChildren();
             Tree children = null;
             boolean winingMove = false;
+
+
             ///QUESTION 3 ///
             int i = 0;
             while(!winingMove && i < childrens.size()){
                 children = childrens.get(i);
-                if(children.getCurrentState().testEnd() != EndState.NOT_FINISHED){
-                    winingMove = true;
-                }
+
+                winingMove = children.getCurrentState().testEnd() != EndState.NOT_FINISHED && !tempTree.isMax();
+
                 i++;
             }
             /// QUESTION 3 ///
 
-            tempTree = winingMove ? children : tempTree.getChildren().get(rand.nextInt(tempTree.getChildren().size()));
+            if(winingMove){
+                tempTree = children;
+            } else {
+                tempTree = tempTree.getChildren().get(rand.nextInt(tempTree.getChildren().size()));
+            }
+
+
 
         }
         r = tempTree.isMax() ? 0 : 1;
