@@ -10,11 +10,11 @@ import java.util.Random;
 
 public class MCTS implements AIStrategy {
 
+
     private Tree root;
     private static MCTS instance;
 
-    private final int TIME = 5000;
-    private final int nbSimul = 10;
+    private final int TIME = 5000;//temps de calcul par coup pour l'ordinateur
 
     public static MCTS getInstance() {
         if(instance == null)
@@ -28,24 +28,18 @@ public class MCTS implements AIStrategy {
 
         long start = System.currentTimeMillis();
         expand(root);
-        Tree winningMove = preCheckMove();
 
+
+        //si on a un coup qui donne la victoire, on le fait directement sans utiliser MCTS (et donc sans attendre le temps TIME)
+        Tree winningMove = preCheckMove();
         if(winningMove != null)
             return winningMove.getMoveFromPreviousState();
 
+        //simulation de MCTS pendant TIME
         while(System.currentTimeMillis() - start < TIME){
             Tree selected = select(root);
             backPropagation(selected,simulate(selected));
         }
-
-        /*
-        int i = 0;
-        while(i < nbSimul){
-            Tree selected = select(root);
-            backPropagation(selected,simulate(selected));
-            i++;
-        }
-         */
 
         return chooseBestMove().getMoveFromPreviousState();
 
@@ -56,9 +50,15 @@ public class MCTS implements AIStrategy {
         return "MCTS";
     }
 
+    /**
+     *
+     * @param tree sélectionne un noeud par rapport à la B valeur et au développement de l'arbre à partir de Tree
+     * @return le noeud sélectionné
+     */
     private static Tree select(Tree tree){
         Tree tempTree = tree;
         Tree selected = null;
+
 
         if(tempTree.getCurrentState().testEnd() != EndState.NOT_FINISHED)
             selected = tempTree;
@@ -95,6 +95,10 @@ public class MCTS implements AIStrategy {
         return selected;
     }
 
+    /**
+     * développe un noeud en ajoutant les coups possibles à ses fils
+     * @param tree l'arbre à développer
+     */
     private static void expand(Tree tree) {
         for (Move m :tree.getCurrentState().getAvailableMoves()) {
             State copy = tree.getCurrentState().getCopy();
@@ -105,6 +109,11 @@ public class MCTS implements AIStrategy {
         tree.setExpanded(true);
     }
 
+    /**
+     * simule une fin de partie à partir de Tree
+     * @param tree noeud à partir du quel on simule une fin de partie
+     * @return la récompense r
+     */
     private static float simulate(Tree tree){
         Random rand = new Random();
         float r = 0;
@@ -141,12 +150,21 @@ public class MCTS implements AIStrategy {
         return r;
     }
 
+    /**
+     * Remonte jusqu'à la racine et propage la récompense r
+     * @param tree noeud au quel on ajoute la simulation et la récompense
+     * @param r récompense à sauvegarder
+     */
     private static void backPropagation(Tree tree,float r){
         tree.addSimulation(1,r);
         if(tree.getFather() != null)
             backPropagation(tree.getFather(),r);
     }
 
+    /**
+     * choisit le meilleur noeud (meilleur coup), en maximisant le % de victoire des simulations et affiche les coups
+     * @return le noeud vainqueur
+     */
     private Tree chooseBestMove(){
         double max = Integer.MIN_VALUE;
         int indexMax = -1;
@@ -191,6 +209,10 @@ public class MCTS implements AIStrategy {
         return childrens.get(indexMax);
     }
 
+    /**
+     * vérifie si un noeud permet de remporter directement la victoire
+     * @return le noeud qui permet de gagner ou null si il n'y en a pas
+     */
     private Tree preCheckMove(){
         boolean winningMove = false;
         List<Tree> childrens = root.getChildren();
