@@ -23,7 +23,7 @@ public class HumanPlayer extends PancakePlayer {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Input a number between 0 and "+(Board.BOARD_WIDTH - 1));
                 col = scanner.nextInt();
-                hasPlayed = (col > 0 && col <= Board.BOARD_WIDTH);
+                hasPlayed = (col >= 0 && col <= Board.BOARD_WIDTH);
             } catch (InputMismatchException e){
                 hasPlayed = false;
             }
