@@ -13,13 +13,17 @@ public class MCTS implements AIStrategy {
     private Tree root;
     private static MCTS instance;
 
-    private final int TIME = 5000;
+    private static int TIME = 5000;
     private final int nbSimul = 10;
 
     public static MCTS getInstance() {
         if(instance == null)
             instance = new MCTS();
         return instance;
+    }
+
+    public static void setTime(int time) {
+        TIME = time;
     }
 
     @Override

@@ -8,7 +8,6 @@ public class PancakeGame implements Game {
 
     private PancakeState currentState;
 
-    private Player[] players;
     public static final int nbDiscsToWin = 4;
 
     public PancakeGame() {
@@ -17,14 +16,11 @@ public class PancakeGame implements Game {
 
     @Override
     public void init() {
-
-        players = new Player[2];
-
 //        players[0] = new AIPlayer(this, MCTS.getInstance(), "Arnold", 1);
-        players[0] = new HumanPlayer(this, "Alice", 1);
-        //players[1] = new HumanPlayer(this, "Bob", 2);
-        players[1] = new AIPlayer(this, MCTS.getInstance(), "BB-8", 2);
-        currentState = PancakeState.getInitialState(players);
+//        players[0] = new HumanPlayer(this, "Alice", 1);
+//        players[1] = new HumanPlayer(this, "Bob", 2);
+//        players[1] = new AIPlayer(this, MCTS.getInstance(), "BB-8", 2);
+        currentState = new PancakeState();
     }
 
     @Override
@@ -85,6 +81,11 @@ public class PancakeGame implements Game {
     @Override
     public Board getBoard() {
         return currentState.getCurrentBoard();
+    }
+
+    @Override
+    public void setPlayers(Player[] players) {
+        currentState.setPlayers(players);
     }
 
     private Player getCurrentPlayer(){

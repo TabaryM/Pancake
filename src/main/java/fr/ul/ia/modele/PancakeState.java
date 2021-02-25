@@ -14,15 +14,13 @@ public class PancakeState implements State {
     public final static int PLAYER1 = 1;
     public final static int PLAYER2 = 2;
 
-    private final Player[] players;
+    private Player[] players;
     private Player currentPlayer;
 
     private Board board;
 
-    private PancakeState(Player[] players){
-        this.players = players;
+    public PancakeState(){
         board = new Board();
-        currentPlayer = players[0];
     }
 
     private void nextPlayer(){
@@ -30,7 +28,8 @@ public class PancakeState implements State {
     }
 
     public State getCopy(){
-        PancakeState copy = new PancakeState(players);
+        PancakeState copy = new PancakeState();
+        copy.setPlayers(players);
         copy.setBoard(board);
         copy.setCurrentPlayer(currentPlayer);
         return copy;
@@ -49,21 +48,9 @@ public class PancakeState implements State {
         else currentPlayer = player;
     }
 
-    public static PancakeState getInitialState(Game game){
-        // TODO : essayer d'unifier avec getInitialState(Player[] players) qui est utilisé dans le PancakeGame
-        Player[] players;
-        players = new Player[2];
-
-        players[0] = new AIPlayer(game, MCTS.getInstance(), "Arnold", 1);
-//        players[0] = new HumanPlayer(game, "Alice", 1);
-//        players[1] = new HumanPlayer(game, "Bob", 2);
-        players[1] = new AIPlayer(game, MCTS.getInstance(), "BB-8", 2);
-        return new PancakeState(players);
-    }
-
-    public static PancakeState getInitialState(Player[] players){
-        // TODO : essayer d'unifier avec getInitialState(Game game) qui est utilisé dans les tests de PancakeState
-        return new PancakeState(players);
+    public void setPlayers(Player[] players){
+        this.players = players;
+        currentPlayer = this.players[0];
     }
 
     @Override
@@ -160,7 +147,6 @@ public class PancakeState implements State {
     public int compareTo(Object o) {
         return board.compareTo(((PancakeState)o).board);
     }
-
 
     public Player getCurrentPlayer(){
         return currentPlayer;

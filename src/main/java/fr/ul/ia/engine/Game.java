@@ -29,4 +29,6 @@ public interface Game {
     State getCurrentState();
 
     Board getBoard();
+
+    void setPlayers(Player[] players);
 }
